@@ -1,9 +1,6 @@
 name: update-tag
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
   check-works:
@@ -16,6 +13,7 @@ jobs:
           run: echo test
 
   bundle:
+    if: ${{ github.ref == 'main' }}
     runs-on: ubuntu-latest
     needs: [check-works]
     steps:
