@@ -6,9 +6,18 @@ on:
       - master
 
 jobs:
+  check-works:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm i --production
+      - uses: ./
+        with:
+          run: echo test
+
   bundle:
     runs-on: ubuntu-latest
-
+    needs: [check-works]
     steps:
       - uses: actions/checkout@v3
       - name: compute bundle branch name
