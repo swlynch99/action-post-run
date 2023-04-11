@@ -11,6 +11,7 @@ const subprocess = spawn(
     {
         cwd: wd == '' ? undefined : wd,
         shell: shell == '' ? true : shell,
+        stdio: 'inherit'
     }
 );
 
