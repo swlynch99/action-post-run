@@ -1,0 +1,15 @@
+name: action-post-run
+description: Run a bash script as a post-run step
+inputs:
+  run:
+    description: Commands to run
+    required: true
+  shell:
+    description: Shell to use to run the commands
+    default: bash
+  working-directory:
+    description: Working directory to use
+runs:
+  using: node16
+  main: main.js
+  post: post.js
