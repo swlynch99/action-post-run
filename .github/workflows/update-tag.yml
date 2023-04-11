@@ -1,0 +1,26 @@
+name: update-tag
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: compute bundle branch name
+        run: |
+          echo TAG=v$(jq -r .version package.json | cut -d . -f 1) >> $GITHUB_ENV
+      - name: install deps
+        run: npm i --production
+      - name: commit node_modules
+        run: |
+          git add -f node_modules
+          git commit -m "Commit node_modules"
+      - name: push to the appropriate branch
+        run: |
+          git checkout -b ${{ env.TAG }}
+          git push -u origin ${{ env.TAG }} --force
